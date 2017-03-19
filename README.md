@@ -9,7 +9,9 @@ This is a .NET wrapper for the step - <b>Write server-side handler</b>
 ```
 Install-Package Stripe-Plaid-Link
 ```
+
 <h3>Exchange Token Endpoint</h3>
+
 ```csharp
 var plaidApi = new PlaidApi();
 try
@@ -35,12 +37,14 @@ catch(PlaidException e)
 ```
 
 <h3>For Testing against their Tartan API...</h3>
+
 ```csharp
 var plaidApi = new PlaidApi(developerMode: true);
 ```
 
 <h3>Optional Configuration</h3>
 You may input these in lieu of setting the Client Id and Secret in the ExchangeTokenInput
+
 ```xml
 <configuration>
   <appSettings>
