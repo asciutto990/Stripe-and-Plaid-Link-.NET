@@ -6,6 +6,7 @@ https://plaid.com/docs/link/stripe/
 This is a .NET wrapper for the step - <b>Write server-side handler</b>
 
 <h5>Available on NuGet</h5>
+
 ```
 Install-Package Stripe-Plaid-Link
 ```
