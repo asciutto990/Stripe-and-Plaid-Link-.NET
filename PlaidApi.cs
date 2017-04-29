@@ -7,16 +7,16 @@ namespace Plaid
 {
     public class PlaidApi : IPlaidApi
     {
-        private readonly bool _developerMode;
+        private readonly PlaidApiEnvironment _config;
 
-        public PlaidApi(bool developerMode = false)
+        public PlaidApi(PlaidApiEnvironment config = PlaidApiEnvironment.BaseApi)
         {
-            _developerMode = developerMode;
+            _config = config;
         }
 
         public async Task<ExchangeTokenResponse> ExchangeTokenAsync(ExchangeTokenInput input)
         {
-            using (var client = new PlaidHttpClient(_developerMode))
+            using (var client = new PlaidHttpClient(_config))
             {
                 return await client.PostAsync<ExchangeTokenInput, ExchangeTokenResponse>("exchange_token", input);
             }

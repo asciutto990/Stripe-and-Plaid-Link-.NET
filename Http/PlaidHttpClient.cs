@@ -8,12 +8,9 @@ namespace Plaid.Http
 {
     internal class PlaidHttpClient : HttpClient
     {
-        private readonly Uri _tartanUrl = new Uri("https://tartan.plaid.com");
-        private readonly Uri _productionUrl = new Uri("https://api.plaid.com");
-
-        public PlaidHttpClient(bool developerMode = false)
+        public PlaidHttpClient(PlaidApiEnvironment config = PlaidApiEnvironment.BaseApi)
         {
-            this.BaseAddress = developerMode ? _tartanUrl : _productionUrl;
+            this.BaseAddress = GetBaseApiUrl(config);
         }
 
         public new Task<HttpResponseMessage> GetAsync(string endpoint)
@@ -37,6 +34,25 @@ namespace Plaid.Http
             {
                 var errorResponse = JsonConvert.DeserializeObject<PlaidErrorResponse>(content);
                 throw new PlaidException(errorResponse);
+            }
+        }
+
+        public Uri GetBaseApiUrl(PlaidApiEnvironment config)
+        {
+            switch (config)
+            {
+                case PlaidApiEnvironment.BaseApi:
+                    return new Uri("https://api.plaid.com");
+                case PlaidApiEnvironment.Tartan:
+                    return new Uri("https://tartan.plaid.com");
+                case PlaidApiEnvironment.Sandbox:
+                    return new Uri("https://sandbox.plaid.com");
+                case PlaidApiEnvironment.Development:
+                    return new Uri("https://development.plaid.com");
+                case PlaidApiEnvironment.Production:
+                    return new Uri("https://production.plaid.com");
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(config), config, null);
             }
         }
     }
