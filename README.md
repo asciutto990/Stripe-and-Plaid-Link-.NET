@@ -37,10 +37,10 @@ catch(PlaidException e)
 }
 ```
 
-<h3>For Testing against their Tartan API...</h3>
+<h3>For Testing...</h3>
 
 ```csharp
-var plaidApi = new PlaidApi(developerMode: true);
+var plaidApi = new PlaidApi(PlaidApiEnvironment.Sandbox);
 ```
 
 <h3>Optional Configuration</h3>
